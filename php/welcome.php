@@ -1,0 +1,15 @@
+<?php session_start(); ?>
+<html>
+ <body>
+ Welcome <?php echo $_SESSION['current_user_fname']; ?>
+<?php echo '<img src="' . $_SESSION['current_user_avatar'] . '"/>' ?>
+ <br />
+ Your e-mail address is: <?php echo $_SESSION['current_user']; ?>.
+ <form action="logout.php" method="get">
+ <BUTTON type="submit">Log Out</BUTTON>
+ </form>
+ <form action="editprofile.php" method="get">
+ 	<BUTTON type="submit">Edit</BUTTON>
+ </form>
+ </body>
+</html>
