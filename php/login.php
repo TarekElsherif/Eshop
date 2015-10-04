@@ -10,6 +10,8 @@
 			$remember = $_POST['remember'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
+			$cart = array();
+			$counter = 0;
 			$password = md5($password);
 			if($remember == 1)
 			{
@@ -24,15 +26,15 @@
 			}
 			$rows = $result->num_rows;
 			if ($rows == 1) {
-				$query = "SELECT fname FROM users where email='$email'";
+				$query = "SELECT * FROM users where email='$email'";
 				$result = $con->query($query);
-				$fname = mysqli_fetch_assoc($result);
-				$query = "SELECT avatar FROM users where email='$email'";
-				$result =  $con->query($query);
-				$avatar = mysqli_fetch_assoc($result);
+				$finalresult = mysqli_fetch_assoc($result);
 				$_SESSION['current_user']=$email;
-				$_SESSION['current_user_fname']=(string)$fname['fname'];	
-				$_SESSION['current_user_avatar']=(string)$avatar['avatar'];	
+				$_SESSION['current_user_fname']=(string)$finalresult['fname'];	
+				$_SESSION['current_user_avatar']=(string)$finalresult['avatar'];
+				$_SESSION['current_user_id']=$finalresult['user_id'];
+				$_SESSION['current_user_cart']=$cart;
+				$_SESSION['counter']=$counter;								
 				header("location: welcome.php"); // Redirecting To Other Page
 			} else {
 				$error = "Email or Password is invalid";
