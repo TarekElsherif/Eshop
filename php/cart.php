@@ -33,35 +33,71 @@
 				echo $purchase['quantity'];
 		  ?>
 	</div>
-<!-- 	<form action="" method="POST" >
-			<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>
-			<?php echo '<input type="hidden" name="available_quantity" id="available_quantity" value="'. $product['quantity'].' "> '?>
-
-			<button type="submit">Add to Cart</button>
-		</form> -->
 </div>
 <?php
 } 
 ?>
 
 <form action="" method="POST" >	
-<button type="submit" name = "submit">Checkout</button>
-
+<button type="submit" name = "Checkout">Checkout</button>
+<button type="submit" name = "Clear" >Clear Cart</button>
+<button type="submit" name = "Products" >Products</button>
+</form>
 <?php
-	if (isset($_POST['submit'])) 
+if(isset($_POST['Clear']))
+{
+	$_SESSION['current_user_cart']=array();
+	$_SESSION['counter']=0;	
+	$message = "Process Completed";
+	echo "<script type='text/javascript'>alert('$message'); window.location = 'welcome.php';</script>";
+}
+?>
+<?php
+if(isset($_POST['Products']))
+{
+	header("location: products.php");
+}
+?>
+<?php
+	if (isset($_POST['Checkout'])) 
 	{
-		foreach ($cart as $purchase)
-		{	
+		$totalprice =0;
+		foreach ($cart as $purchase) 
+		{
 			$id = $purchase['product_id'];
 			$query = "SELECT * FROM products where product_id = '$id'";
 			$result = $con->query($query);
 			$product = mysqli_fetch_assoc($result);
-	 		$available_quantity=  $product['quantity'] - $purchase['quantity'];
-			mysqli_query($con,"UPDATE products SET quantity='$available_quantity' WHERE product_id = '$id' ");
-			$current_user = $_SESSION['current_user_id']; 
-			$quantity = $purchase['quantity'];
-			mysqli_query($con,"INSERT INTO purchases (user_id, product_id, quantity) VALUES  ('$current_user', '$id', '$quantity' ) ");
-
-		}	
+			$totalprice = $totalprice + ($purchase['quantity']*$product['price']);
+		}
+?>
+		<?php $message = "Total Price :".$totalprice; echo "<script type='text/javascript'>alert('$message');</script>"; ?>
+		<form action="" method="POST" >	
+		<button type="submit" name = "Confirm">Confirm</button>
+		</form>
+<?php
 	}
 ?>
+<?php
+			if(isset($_POST['Confirm']))
+			{
+				foreach ($cart as $purchase)
+				{	
+					$id = $purchase['product_id'];
+					$query = "SELECT * FROM products where product_id = '$id'";
+					$result = $con->query($query);
+					$product = mysqli_fetch_assoc($result);
+			 		$available_quantity=  $product['quantity'] - $purchase['quantity'];
+					mysqli_query($con,"UPDATE products SET quantity='$available_quantity' WHERE product_id = '$id' ");
+					$current_user = $_SESSION['current_user_id']; 
+					$quantity = $purchase['quantity'];
+					mysqli_query($con,"INSERT INTO purchases (user_id, product_id, quantity) VALUES  ('$current_user', '$id', '$quantity' ) ");
+					$_SESSION['current_user_cart']=array();
+					$_SESSION['counter']=0;
+				}
+				$message = "Thank You For Shopping";
+				echo "<script type='text/javascript'>alert('$message'); window.location = 'welcome.php';</script>";
+			}	
+?>
+</body>
+</html>
