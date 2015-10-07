@@ -51,7 +51,7 @@
 							<ul class="nav navbar-nav">
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
-								<li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
+								<li><a href="editprofile.php"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
 								<?php } ?>
 
 								<?php if (isset($_SESSION['current_user'])) { ?>

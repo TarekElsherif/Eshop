@@ -123,7 +123,7 @@
 						Last name:
 						<input name="lname" type="text" placeholder="Last Name">
 						Email:
-						<input name="email" placeholder="email" placeholder="Email" type="text">
+						<input name="email" placeholder="Email" type="text">
 						Password:
 						<input name="password" type="password" placeholder="Password">
 						Avatar:

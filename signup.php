@@ -3,7 +3,7 @@
 	$error='';
 	if (isset($_POST['S_submitted'])) {
 		if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['fname']) || empty($_POST['lname']) ) {
-			$message = "Your Information Is Not Complete";
+			$message = "Your information is not complete";
 			echo "<script type='text/javascript'>alert('$message'); window.location = 'authentication.php'</script>";
 		}
 		else

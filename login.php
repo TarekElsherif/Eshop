@@ -30,7 +30,8 @@
 				$result = $con->query($query);
 				$finalresult = mysqli_fetch_assoc($result);
 				$_SESSION['current_user']=$email;
-				$_SESSION['current_user_fname']=(string)$finalresult['fname'];	
+				$_SESSION['current_user_fname']=(string)$finalresult['fname'];
+				$_SESSION['current_user_lname']=(string)$finalresult['lname'];
 				$_SESSION['current_user_avatar']=(string)$finalresult['avatar'];
 				$_SESSION['current_user_id']=$finalresult['user_id'];
 				$_SESSION['current_user_cart']=$cart;

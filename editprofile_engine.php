@@ -7,6 +7,7 @@
 		}
 		else
 		{
+			$user_id = $_SESSION['current_user_id'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
 			$fname=$_POST['fname'];
@@ -39,7 +40,7 @@
 				if ($rows == 1) {
 					$error = "Email is already registered";
 				}else {
-				mysqli_query($con,"UPDATE users SET fname='$fname' , lname ='$lname' , email ='$email' , password ='$password' , avatar='$target_file'");
+				mysqli_query($con,"UPDATE users SET fname='$fname' , lname ='$lname' , email ='$email' , password ='$password' , avatar='$target_file' WHERE user_id = '$user_id'");
 				$_SESSION['current_user']=$email;
 				// $_SESSION['current_user_id']=$id;
 				$_SESSION['current_user_fname']=$fname;			
@@ -52,7 +53,7 @@
 			}
 			
 			}else {
-				mysqli_query($con,"UPDATE users SET fname='$fname' , lname ='$lname' , email ='$email' , password ='$password' , avatar='$target_file'");
+				mysqli_query($con,"UPDATE users SET fname='$fname' , lname ='$lname' , email ='$email' , password ='$password' , avatar='$target_file' WHERE user_id = '$user_id'");
 				$_SESSION['current_user']=$email;
 				// $_SESSION['current_user_id']=$id;
 				$_SESSION['current_user_fname']=$fname;			
@@ -60,7 +61,7 @@
 				$_SESSION['current_user_password']=$password;
 				$_SESSION['current_user_avatar']=$target_file;	
 
-						header("location: index.php");		
+						header("location: editprofile.php");		
 
 			}
 			mysqli_close($con);

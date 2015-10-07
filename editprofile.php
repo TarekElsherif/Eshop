@@ -14,8 +14,8 @@
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-		<link href="css/main.css" rel="stylesheet">
-		<link href="css/responsive.css" rel="stylesheet">      
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">      
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -38,7 +38,7 @@
 							<ul class="nav navbar-nav">
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
-								<li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
+								<li><a href="editprofile.php"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
 								<?php } ?>
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
@@ -69,7 +69,7 @@
 						
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.php" class="active">Home</a></li>
+								<li><a href="index.php">Home</a></li>
 								<li><a href="products.php">Products</a></li>
 								<li><a href="about.php">About</a></li>
 							</ul>
@@ -83,9 +83,29 @@
 
 		<section id="form"><!--form-->
 		<div class="container">
+		    <div class="row">
+ 			  </div>
+ 		</div>
+
+		<div class="container">
 		<div class="row">
-		<div class="signup-form"><!--edit form-->
-			<h2>Edit Form</h2>
+		<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="">
+								<?php echo '<img src="' . $_SESSION['current_user_avatar'] . '" class="circular"' ?>
+							</div>
+
+						</div>
+							<div class="product-information"><!--/product-information-->
+								<p>
+								<strong>Name:</strong> <?php echo $_SESSION['current_user_fname'] . " " . $_SESSION['current_user_lname']; ?>
+								<br>
+								<strong>Email:</strong> <?php echo $_SESSION['current_user']; ?>
+								</p>
+							</div><!--/product-information-->
+			</div><!--/product-details-->
+		<div class="signup-form col-md-4"><!--edit form-->
+			<h2>Edit Profile</h2>
 			<form action="" method="POST" enctype="multipart/form-data">
 				<input type='hidden' name='submitted' id='submitted' value='1'/>
 				First name:
@@ -93,7 +113,7 @@
 				Last name:
 				<input name="lname" type="text" placeholder="Last Name">
 				Email:
-				<input name="email" placeholder="email" type="text" placeholder="Email">
+				<input name="email" placeholder="Email" type="text" placeholder="Email">
 				Password:
 				<input name="password" type="password" placeholder="Password">
 				Avatar:

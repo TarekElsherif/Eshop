@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,7 @@
               <ul class="nav navbar-nav">
 
                 <?php if (isset($_SESSION['current_user'])) { ?>
-                <li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
+                <li><a href="editprofile.php"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
                 <?php } ?>
 
                 <li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
