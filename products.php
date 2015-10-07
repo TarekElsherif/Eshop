@@ -124,10 +124,10 @@
 										<form action="product-details.php" method="POST" >
 											<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>									
 											<button type="submit" name="Add" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</button>
+											<?php if ($product['quantity']==0) { ?>
+												<a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
+											<?php } ?>
 										</form>
-										<?php if ($product['quantity']==0) { ?>
-										<a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
-										<?php } ?>
 
 									</div>
 									<div class="product-overlay">

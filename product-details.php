@@ -117,7 +117,6 @@
 										<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>
 										<?php echo '<input type="hidden" name="available_quantity" id="availbale_quantity" value="'. $product['quantity'].' "> '?>
 										<button type="submit" name="Add" class="btn btn-fefault cart " ><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									
 								</span>
 								</form>
 								<p><b>Availability: </b> In Stock</p>

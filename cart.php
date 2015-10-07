@@ -147,6 +147,11 @@
 							<form action="" method="POST" >	
 								<button type="submit" name = "Checkout" class="btn btn-default check_out">Checkout</button>
 								<button type="submit" name = "Clear" class="btn btn-default check_out">Clear Cart</button>
+								<?php
+									if (isset($_POST['Checkout'])) 
+									{ ?>
+								<button type="submit" name = "Confirm" class="btn btn-default check_out">Confirm</button>
+								<?php }?>
 							</form>
 					</div>
 				</div>
@@ -177,9 +182,7 @@
 				}
 		?>
 				<?php $message = "Total Price :".$totalprice; echo "<script type='text/javascript'>alert('$message');</script>"; ?>
-				<form action="" method="POST" >	
-				<button type="submit" name = "Confirm">Confirm</button>
-				</form>
+
 		<?php
 			}
 		?>

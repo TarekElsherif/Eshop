@@ -24,7 +24,7 @@ if (isset($_POST['Add']))
 		{
 				$required_quantity= $_POST['quantity'];
 				$flag=0;
-				if( $available_quantity>=$required_quantity)
+				if((int) $available_quantity>= (int) $required_quantity)
 				{
 					for ($i=0; $i <$counter ; $i++) 
 					{ 
