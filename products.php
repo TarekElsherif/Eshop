@@ -121,7 +121,10 @@
 										?>
 										<h2><?php echo $product['price']; ?> LE</h2>
 										<p><?php echo $product['name']; ?></p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</a>
+										<form action="product-details.php" method="POST" >
+											<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>									
+											<button type="submit" name="Add" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</button>
+										</form>
 										<?php if ($product['quantity']==0) { ?>
 										<a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
 										<?php } ?>
@@ -131,7 +134,10 @@
 										<div class="overlay-content">
 											<h2><?php echo $product['price']; ?> LE</h2>
 											<p><?php echo $product['name']; ?></p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</a>
+											<form action="product-details.php" method="POST" >
+												<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>									
+												<button type="submit" name="Add" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</button>
+											</form>
 												<?php if ($product['quantity']==0) { ?>
 										    <a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
 										    <?php } ?>

@@ -2,14 +2,10 @@
 	session_start();
 	$cart=$_SESSION['current_user_cart'];
 	$con = mysqli_connect("localhost","root","","eshop");
+	$totalprice =0;
 
-	foreach ($cart as $purchase)
-	{	
-		$id = $purchase['product_id'];
-		$query = "SELECT * FROM products where product_id = '$id'";
-		$result = $con->query($query);
-		$product = mysqli_fetch_assoc($result);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,10 +44,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 
-								<?php if (isset($_SESSION['current_user'])) { ?>
-								<li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
-								<?php } ?>
-
+								</a></li>
 								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
@@ -104,84 +97,38 @@
 							<td class="description"></td>
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
 							<td></td>
 						</tr>
 					</thead>
 					<tbody>
+						<?php 
+							foreach ($cart as $purchase)
+							{	
+								$id = $purchase['product_id'];
+								$query = "SELECT * FROM products where product_id = '$id'";
+								$result = $con->query($query);
+								$product = mysqli_fetch_assoc($result);
+								$totalprice = $totalprice + ($purchase['quantity']*$product['price']);
+						?>
 						<tr>
 							<td class="cart_product">
-								<a href=""><?php echo '<img src="' .$product['picture']. '"'; ?></a>
+								<?php echo '<img src="' . $product['picture'] . '" height="150" width="150"/>'; ?>
 							</td>
 							<td class="cart_description">
-								<h4><a href=""><?php echo "Product name: " . $product['name']; ?></a></h4>
-								<p>Web ID: 1089772</p>
+								<h4><?php echo $product['name']; ?></h4>
+								<p>Product ID: <?php echo $product['product_id']; ?></p>
 							</td>
 							<td class="cart_price">
-								<p><?php echo "Price: " . $product['price']; ?></p>
-							</td>
-							<td class="cart_quantity">
-								<?php echo $purchase['quantity']; ?>
-								
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/two.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
+								<p><?php echo $product['price']; ?> LE</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<label>Quantity:</label>
+									<?php echo  $purchase['quantity'];?>								
 								</div>
 							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
 						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/three.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+						<?php } ?>
 					</tbody>
 				</table>
 			</div>
@@ -194,17 +141,69 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
+							<li>Total <span><?php echo $totalprice ?></span></li>
 						</ul>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+							<form action="" method="POST" >	
+								<button type="submit" name = "Checkout" class="btn btn-default check_out">Checkout</button>
+								<button type="submit" name = "Clear" class="btn btn-default check_out">Clear Cart</button>
+							</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section><!--/#do_action-->
+			<!-- backend -->
+		<?php
+		if(isset($_POST['Clear']))
+		{
+			$_SESSION['current_user_cart']=array();
+			$_SESSION['counter']=0;	
+			$message = "Process Completed";
+			echo "<script type='text/javascript'>alert('$message'); window.location = 'products.php';</script>";
+		}
+		?>
+		<?php
+			if (isset($_POST['Checkout'])) 
+			{
+				$totalprice =0;
+				foreach ($cart as $purchase) 
+				{
+					$id = $purchase['product_id'];
+					$query = "SELECT * FROM products where product_id = '$id'";
+					$result = $con->query($query);
+					$product = mysqli_fetch_assoc($result);
+					$totalprice = $totalprice + ($purchase['quantity']*$product['price']);
+				}
+		?>
+				<?php $message = "Total Price :".$totalprice; echo "<script type='text/javascript'>alert('$message');</script>"; ?>
+				<form action="" method="POST" >	
+				<button type="submit" name = "Confirm">Confirm</button>
+				</form>
+		<?php
+			}
+		?>
+		<?php
+					if(isset($_POST['Confirm']))
+					{
+						foreach ($cart as $purchase)
+						{	
+							$id = $purchase['product_id'];
+							$query = "SELECT * FROM products where product_id = '$id'";
+							$result = $con->query($query);
+							$product = mysqli_fetch_assoc($result);
+					 		$available_quantity=  $product['quantity'] - $purchase['quantity'];
+							mysqli_query($con,"UPDATE products SET quantity='$available_quantity' WHERE product_id = '$id' ");
+							$current_user = $_SESSION['current_user_id']; 
+							$quantity = $purchase['quantity'];
+							mysqli_query($con,"INSERT INTO purchases (user_id, product_id, quantity) VALUES  ('$current_user', '$id', '$quantity' ) ");
+							$_SESSION['current_user_cart']=array();
+							$_SESSION['counter']=0;
+						}
+						$message = "Thank You For Shopping";
+						echo "<script type='text/javascript'>alert('$message'); window.location = 'products.php';</script>";
+					}	
+		?>
 
 	    		<!-- CONTENT END -->
 
@@ -213,7 +212,7 @@
 	</section>
 	
 	<footer id="footer"><!--Footer-->
-		<div class="header_top"><!--header_top-->
+		<div class="header_top"> <!--header_top-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
