@@ -1,3 +1,16 @@
+<?php
+	session_start();
+	$cart=$_SESSION['current_user_cart'];
+	$con = mysqli_connect("localhost","root","","eshop");
+
+	foreach ($cart as $purchase)
+	{	
+		$id = $purchase['product_id'];
+		$query = "SELECT * FROM products where product_id = '$id'";
+		$result = $con->query($query);
+		$product = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,21 +111,18 @@
 					<tbody>
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="images/cart/one.png" alt=""></a>
+								<a href=""><?php echo '<img src="' .$product['picture']. '"'; ?></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
+								<h4><a href=""><?php echo "Product name: " . $product['name']; ?></a></h4>
 								<p>Web ID: 1089772</p>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<p><?php echo "Price: " . $product['price']; ?></p>
 							</td>
 							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
+								<?php echo $purchase['quantity']; ?>
+								
 							</td>
 							<td class="cart_total">
 								<p class="cart_total_price">$59</p>

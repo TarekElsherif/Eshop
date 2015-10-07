@@ -38,9 +38,7 @@ foreach ($products as $product)
 		echo '<img src="' .$product['picture']. '" height="150" width="150"/>';
 	}
 	?>	
-	<div> <?php
-				echo $product['name'];
-			?>
+	<div> <?php echo $product['name']; ?>
 			<br>	
 				<?php
 				echo $product['price'];

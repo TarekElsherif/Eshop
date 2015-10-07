@@ -3,17 +3,17 @@
 	$error='';
 	if (isset($_POST['L_submitted'])) {
 		if (empty($_POST['email']) || empty($_POST['password'])) {
-			$error = "Email or Password is invalid";
+			$message = "Email or Password is invalid";
+			echo "<script type='text/javascript'>alert('$message'); window.location = 'authentication.php'</script>";
 		}
 		else
 		{
-			$remember = $_POST['remember'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
 			$cart = array();
 			$counter = 0;
 			$password = md5($password);
-			if($remember == 1)
+			if(isset($_POST['remember']))
 			{
 				setcookie('email', $_POST['email'], time() + 1000000000);
 				setcookie('password', $_POST['password'], time() + 1000000000);
@@ -37,7 +37,8 @@
 				$_SESSION['counter']=$counter;								
 				header("location: index.php"); // Redirecting To Other Page
 			} else {
-				$error = "Email or Password is invalid";
+				$message = "Email or Password is invalid";
+				echo "<script type='text/javascript'>alert('$message'); window.location = 'authentication.php'</script>";
 			}
 			mysqli_close($con);
 			}

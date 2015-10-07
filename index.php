@@ -36,10 +36,14 @@
 							<ul class="nav navbar-nav">
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
-								<li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
+								<li><a href="editprofile.php"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
 								<?php } ?>
 
+								<?php if (isset($_SESSION['current_user'])) { ?>
 								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<?php } else { ?>
+								<li><a href="authentication.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<?php } ?>
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
 								<li><form action="logout.php" method="get">
@@ -207,7 +211,7 @@
 					</div><!--features_items-->
 					
 					<div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">recommended items</h2>
+						<h2 class="title text-center">New Products</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">

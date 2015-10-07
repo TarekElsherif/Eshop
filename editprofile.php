@@ -1,15 +1,6 @@
-<?php 
-	if(isset($_SESSION['current_user'])){
-		// header("location: profile.php");
-	}
-		if (isset($_COOKIE['email']))
-	{
-		$_SESSION['current_user']=$_COOKIE['email'];
-		$_SESSION['current_user_password']=$_COOKIE['password'];
-		header("location: welcome.php");
-	}
+<?php
+	include("editprofile_engine.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login | eShop</title>
+    <title>Home | eShop</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">      
+		<link href="css/main.css" rel="stylesheet">
+		<link href="css/responsive.css" rel="stylesheet">      
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -55,7 +46,7 @@
 								<?php } else { ?>
 								<li><a href="authentication.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<?php } ?>
-								
+
 								<?php if (isset($_SESSION['current_user'])) { ?>
 								<li><form action="logout.php" method="get">
 								<button action="logout.php" method="get" type="submit"><i class="fa fa-lock"></i> Logout</button>
@@ -78,7 +69,7 @@
 						
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.php">Home</a></li>
+								<li><a href="index.php" class="active">Home</a></li>
 								<li><a href="products.php">Products</a></li>
 								<li><a href="about.php">About</a></li>
 							</ul>
@@ -89,54 +80,31 @@
 		</div><!--/header-bottom-->
 
 		<!-- CONTENT START -->
-	
-	<section id="form"><!--form-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<form action="login.php" method="POST">
-							<input type='hidden' name='L_submitted' id='submitted' value='1'/>
-							Email :
-							<input name="email" placeholder="Email" type="text">
-							Password :
-							<input name="password" placeholder="Password" type="password">
-							<span>
-								<input type="checkbox" name="remember" id = "remember" value="1">Remember Me
-							</span>
-							<br>
-							<button type="submit" class="btn btn-default">Login</button>
-						</form>
-					</div><!--/login form-->
-				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
-				</div>
-				<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form action = "signup.php" method="POST" target="" enctype="multipart/form-data">
-						<input type='hidden' name='S_submitted' id='submitted' value='1'/>
-						First name:
-						<input name="fname" type="text" placeholder="First Name">
-						Last name:
-						<input name="lname" type="text" placeholder="Last Name">
-						Email:
-						<input name="email" placeholder="email" placeholder="Email" type="text">
-						Password:
-						<input name="password" type="password" placeholder="Password">
-						Avatar:
-    					<input type="file" name="avatar" id="avatar"><br>
-						<button type="submit" class="btn btn-default">Signup</button>
-						<br>
-						</form>
-					</div><!--/sign up form-->
-				</div>
-			</div>
-		</div>
-	</section><!--/form-->
 
+		<section id="form"><!--form-->
+		<div class="container">
+		<div class="row">
+		<div class="signup-form"><!--edit form-->
+			<h2>Edit Form</h2>
+			<form action="" method="POST" enctype="multipart/form-data">
+				<input type='hidden' name='submitted' id='submitted' value='1'/>
+				First name:
+				<input name="fname" type="text" placeholder="First Name">
+				Last name:
+				<input name="lname" type="text" placeholder="Last Name">
+				Email:
+				<input name="email" placeholder="email" type="text" placeholder="Email">
+				Password:
+				<input name="password" type="password" placeholder="Password">
+				Avatar:
+    		<input type="file" name="avatar" id="avatar"><br>
+				<button type="submit" class="btn btn-default">Update</button>
+				<br>
+			</form>
+		</div><!--/edit form-->
+		</div>
+		</div>
+		</section>
 		<!-- CONTENT END -->
 	
 	<section>
@@ -188,4 +156,3 @@
     <script src="js/main.js"></script>
 </body>
 </html>
-	

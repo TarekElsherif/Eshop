@@ -54,7 +54,11 @@
 								<li><a href="#"><i class="fa fa-user"></i> <?php echo $_SESSION['current_user_fname']; ?></a></li>
 								<?php } ?>
 
+								<?php if (isset($_SESSION['current_user'])) { ?>
 								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<?php } else { ?>
+								<li><a href="authentication.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<?php } ?>
 
 								<?php if (isset($_SESSION['current_user'])) { ?>
 								<li><form action="logout.php" method="get">
@@ -118,15 +122,20 @@
 										<h2><?php echo $product['price']; ?> LE</h2>
 										<p><?php echo $product['name']; ?></p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</a>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										<?php if ($product['quantity']==0) { ?>
+										<a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
+										<?php } ?>
+
 									</div>
 									<div class="product-overlay">
 										<div class="overlay-content">
 											<h2><?php echo $product['price']; ?> LE</h2>
 											<p><?php echo $product['name']; ?></p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</a>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-tag"></i>Check</a>
+												<?php if ($product['quantity']==0) { ?>
+										    <a class="btn btn-default add-to-cart"><i class="fa fa-frown-o"></i>Sold Out</a>
+										    <?php } ?>
+											</div>
 									</div>
 								</div>
 							</div>

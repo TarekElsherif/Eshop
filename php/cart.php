@@ -18,25 +18,15 @@
 </head>
 <body>
 <div>
-	<?php
-		echo '<img src="' .$product['picture']. '" height="150" width="150"/>';
-	?>	
-	<div> <?php
-				echo "Product name: " . $product['name'];
-			?>
+	<?php echo '<img src="' .$product['picture']. '" height="150" width="150"/>'; ?>	
+	<div> <?php echo "Product name: " . $product['name']; ?>
 			<br>	
-				<?php
-				echo "Price: " . $product['price'];
-			?>
+				<?php echo "Price: " . $product['price']; ?>
 			<br>
-			<?php
-				echo $purchase['quantity'];
-		  ?>
+			<?php echo $purchase['quantity']; ?>
 	</div>
 </div>
-<?php
-} 
-?>
+<?php } ?>
 
 <form action="" method="POST" >	
 <button type="submit" name = "Checkout">Checkout</button>
