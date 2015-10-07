@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	$con = mysqli_connect("localhost","root","","eshop");
+	$product_id = $_POST['product_id'];
+	$query = "SELECT * FROM products where product_id = '$product_id'";
+	$result = $con->query($query);
+	$product = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,6 +81,8 @@
 			</div>
 		</div><!--/header-bottom-->
 
+
+
 		<!-- CONTENT START -->
 
 	<section>
@@ -81,7 +91,7 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="images/product-details/1.jpg" alt="" />
+								<?php echo '<img src="' .$product['picture']. '" class="share img-responsive"/>'; ?>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -97,20 +107,23 @@
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-								<p>Web ID: 1089772</p>
+								<h2><?php echo $product['name']?></h2>
+								<p>Product ID: <?php echo $product['product_id']?></p>
+								<form action="cart-engine.php" method="POST" >
 								<span>
-									<span>US $59</span>
-									<label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Add to cart
-									</button>
+									<span><?php echo $product['price']?> LE</span>
+										<label>Quantity:</label>
+										<input name="quantity" type="text"value="1">
+										<?php echo '<input type="hidden" name="product_id" id="product_id" value="'. $product['product_id'].' "> '?>
+										<?php echo '<input type="hidden" name="available_quantity" id="availbale_quantity" value="'. $product['quantity'].' "> '?>
+										<button type="submit" name="Add" class="btn btn-fefault cart " ><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+									
 								</span>
-								<p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> ESHOP</p>
+								</form>
+								<p><b>Availability: </b> In Stock</p>
+								<p><b>Available Quantity: </b><?php echo $product['quantity']?> </p>
+								<p><b>Condition: </b>New</p>
+								<p><b>Brand: </b>ESHOP</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>

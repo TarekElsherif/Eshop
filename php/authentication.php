@@ -28,7 +28,7 @@
 					<input name="email" placeholder="email" type="text">
 					Password :
 					<input name="password" type="password">
-					<input type="checkbox" name="remember" value="1">Remember Me
+					<input type="checkbox" name="remember" >Remember Me
 					<input type="submit" >
 					<span><?php echo $error; ?></span>
 				</form>
