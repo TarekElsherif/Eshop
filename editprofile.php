@@ -1,5 +1,16 @@
 <?php
 	include("editprofile_engine.php");
+	$user_id= $_SESSION['current_user_id'];
+	$query = "SELECT * FROM purchases WHERE user_id ='$user_id' ";
+	$con = mysqli_connect("localhost","root","","eshop");
+	$result = $con->query($query);
+	$products = array();
+	$i=0;
+	while($row = mysqli_fetch_assoc($result))
+	{
+		$products[$i]= $row;
+		$i++;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,6 +136,59 @@
 		</div>
 		</div>
 		</section>
+		
+		<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="index.php">Home</a></li>
+				  <li class="active">History</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<?php	
+							foreach ($products as $product) 
+								{
+									$product_id=$product['product_id'];
+									$query = "SELECT * FROM products WHERE product_id ='$product_id' ";
+									$result = $con->query($query);
+									$row = mysqli_fetch_assoc($result);
+						?>
+						<tr>
+							<td class="cart_product">
+								<?php echo '<img src="' .$row['picture']. '" height="150" width="150"/>'; ?>
+							</td>
+							<td class="cart_description">
+								<h4><?php echo $row['name']; ?></h4>
+								<p>Product ID: <?php echo $row['product_id']; ?></p>
+							</td>
+							<td class="cart_price">
+								<p><?php echo $row['price']; ?> LE</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<label>Quantity:</label>
+									<?php echo  $product['quantity'];?>								
+								</div>
+							</td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
 		<!-- CONTENT END -->
 	
 	<section>
